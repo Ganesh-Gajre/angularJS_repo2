@@ -31,7 +31,6 @@
   function NarrowItDownController(MenuSearchService) {
     var menu = this;
     menu.found = [];
-    menu.notFound = false;
 
     menu.getMenuItems = function (shortName) {
 
@@ -43,10 +42,8 @@
             menu.found.push(menuItems);
           }
         });
-        
-        if (menu.found.length === 0) {
-          menu.notFound = true;
-        }
+
+        menu.notFound = (shortName && menu.found.length) ? false : true;
       })
         .catch(function (error) {
           console.log(error);
@@ -54,7 +51,7 @@
     };
 
     menu.removeItem = function (itemIndex) {
-      menu.found.splice(itemIndex, 1);
+      MenuSearchService.removeItem(menu.found, itemIndex);
     };
   }
 
@@ -70,6 +67,10 @@
       });
 
       return foundItems;
+    };
+
+    service.removeItem = function (itemIndex) {
+      menu.found.splice(itemIndex, 1);
     };
   }
 

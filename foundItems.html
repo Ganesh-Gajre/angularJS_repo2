@@ -9,10 +9,10 @@
   </thead>
   <tbody>
     <tr ng-repeat="item in menu.items">
-      <th scope="row">{{ item.name }}</th>
+      <th>{{ item.name }}</th>
       <td>{{ item.short_name }}</td>
       <td>{{ item.description }}</td>
-      <td><button class="btn btn-danger" ng-click="item.onRemove({index: $index});">Don't want this one!</button></td>
+      <td><button class="btn btn-danger" ng-click="menu.onRemove({index: $index});">Don't want this one!</button></td>
     </tr>
   </tbody>
 </table>
