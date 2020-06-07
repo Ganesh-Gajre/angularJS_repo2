@@ -5,19 +5,27 @@
     .controller('NarrowItDownController', NarrowItDownController)
     .service('MenuSearchService', MenuSearchService)
     .constant('ApiBasePath', "https://davids-restaurant.herokuapp.com")
-    .component('foundItems', {
+    .directive('foundItems', FoundItemsDirective);
+
+  function FoundItemsDirective() {
+    var ddo = {
       templateUrl: 'foundItems.html',
-      controller: FoundItemsController,
-      bindings: {
-        foundItems: '<',
+      scope: {
+        items: '<',
         onRemove: '&'
-      }
-    });
+      },
+      controller: FoundItemsController,
+      controllerAs: 'menu',
+      bindToController: true
+    };
+
+    return ddo;
+  }
+
 
   function FoundItemsController() {
     var menu = this;
 
-    menu.foundItems = [];
     menu.remove = function (myIndex) {
       menu.onRemove({ index: myIndex });
     };
@@ -26,6 +34,7 @@
   NarrowItDownController.$inject = ['MenuSearchService'];
   function NarrowItDownController(MenuSearchService) {
     var menu = this;
+    menu.found = [];
 
     menu.getMenuItems = function (shortName) {
 
