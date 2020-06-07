@@ -1,27 +1,31 @@
 (function () {
   'use strict';
 
-  var app = angular.module('NarrowItDownApp', [])
-  app.controller('NarrowItDownController', NarrowItDownController)
-  app.service('MenuSearchService', MenuSearchService)
-  app.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com")
-  app.directive('foundItems', FoundItemsDirective);
-
-  function FoundItemsDirective() {
-    return {
+  angular.module('NarrowItDownApp', [])
+    .controller('NarrowItDownController', NarrowItDownController)
+    .service('MenuSearchService', MenuSearchService)
+    .constant('ApiBasePath', "https://davids-restaurant.herokuapp.com")
+    .component('foundItems', {
       templateUrl: 'foundItems.html',
       controller: FoundItemsController,
-      controllerAs: 'foundItem',
-      scope: {
+      bindings: {
         items: '<',
         onRemove: '&'
-      },
-      bindToController: true
-    }
-  }
+      }
+    });
 
-  function FoundItemsController() {
+  FoundItemsController.$inject = ['$element']
+  function FoundItemsController($element) {
     var foundItem = this;
+    var totalItems;
+
+    foundItem.remove = function (myIndex) {
+      foundItem.onRemove({ index: myIndex });
+    };
+
+    foundItem.$onInit = function () {
+      totalItems = 0;
+    };
   }
 
   NarrowItDownController.$inject = ['MenuSearchService'];
@@ -37,7 +41,6 @@
           if (menuItems.description.split(' ').includes(shortName)) {
             menu.found.push(menuItems);
           }
-          console.log(menu.found);
         });
       })
         .catch(function (error) {
