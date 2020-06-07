@@ -9,22 +9,16 @@
       templateUrl: 'foundItems.html',
       controller: FoundItemsController,
       bindings: {
-        items: '<',
+        foundItems: '<',
         onRemove: '&'
       }
     });
 
-  FoundItemsController.$inject = ['$element']
-  function FoundItemsController($element) {
-    var foundItem = this;
-    var totalItems;
+  function FoundItemsController() {
+    var menu = this;
 
-    foundItem.remove = function (myIndex) {
-      foundItem.onRemove({ index: myIndex });
-    };
-
-    foundItem.$onInit = function () {
-      totalItems = 0;
+    menu.remove = function (myIndex) {
+      menu.onRemove({ index: myIndex });
     };
   }
 
