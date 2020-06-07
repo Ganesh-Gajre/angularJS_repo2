@@ -25,16 +25,13 @@
 
   function FoundItemsController() {
     var menu = this;
-
-    menu.remove = function (myIndex) {
-      menu.onRemove({ index: myIndex });
-    };
   }
 
   NarrowItDownController.$inject = ['MenuSearchService'];
   function NarrowItDownController(MenuSearchService) {
     var menu = this;
     menu.found = [];
+    menu.notFound = false;
 
     menu.getMenuItems = function (shortName) {
 
@@ -46,6 +43,10 @@
             menu.found.push(menuItems);
           }
         });
+        
+        if (menu.found.length === 0) {
+          menu.notFound = true;
+        }
       })
         .catch(function (error) {
           console.log(error);
