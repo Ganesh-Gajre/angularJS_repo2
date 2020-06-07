@@ -69,8 +69,8 @@
       return foundItems;
     };
 
-    service.removeItem = function (itemIndex) {
-      menu.found.splice(itemIndex, 1);
+    service.removeItem = function (itemList, itemIndex) {
+      itemList.splice(itemIndex, 1);
     };
   }
 

@@ -25,7 +25,7 @@
     <!-- found-items should be implemented as a component -->
     <div class="row">
       <div class="error" ng-if="menu.notFound">"Nothing found"</div>
-      <found-items items="menu.found" on-remove="menu.removeItem(index)"></found-items>
+      <found-items ng-if="!menu.notFound" items="menu.found" on-remove="menu.removeItem(index)"></found-items>
     </div>
   </div>
 
