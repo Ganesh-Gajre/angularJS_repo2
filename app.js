@@ -17,6 +17,7 @@
   function FoundItemsController() {
     var menu = this;
 
+    menu.foundItems = [];
     menu.remove = function (myIndex) {
       menu.onRemove({ index: myIndex });
     };
